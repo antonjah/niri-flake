@@ -2856,6 +2856,35 @@
                   {
                     tiled-state = nullable types.bool;
                   }
+                  {
+                    background-effect = nullable (section {
+                      xray = nullable types.bool // {
+                        description = ''
+                          Enable the xray effect, which blurs the background efficiently by sampling
+                          below the window stack. Enabled by default.
+                        '';
+                      };
+                      blur = nullable types.bool // {
+                        description = ''
+                          Enable blur behind this window.
+                        '';
+                      };
+                      noise = nullable float-or-int // {
+                        description = ''
+                          Amount of pixel noise added to the background.
+                        '';
+                      };
+                      saturation = nullable float-or-int // {
+                        description = ''
+                          Color saturation of the background (0 is desaturated, 1 is normal).
+                        '';
+                      };
+                    }) // {
+                      description = ''
+                        Override the background effect options for this window.
+                      '';
+                    };
+                  }
                 ]
               )
               // {
@@ -3776,6 +3805,14 @@
             (nullable leaf "variable-refresh-rate" cfg.variable-refresh-rate)
             (nullable leaf "scroll-factor" cfg.scroll-factor)
             (nullable leaf "tiled-state" cfg.tiled-state)
+            (optional-node (cfg.background-effect != null) (plain' "background-effect" [
+              (flag' "xray" (cfg.background-effect.xray == true))
+              (flag' "no-xray" (cfg.background-effect.xray == false))
+              (flag' "blur" (cfg.background-effect.blur == true))
+              (flag' "no-blur" (cfg.background-effect.blur == false))
+              (nullable leaf "noise" cfg.background-effect.noise)
+              (nullable leaf "saturation" cfg.background-effect.saturation)
+            ]))
           ])
         ]))
         (each cfg.layer-rules (cfg: [
