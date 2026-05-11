@@ -2990,17 +2990,17 @@
                     Number of downsample/upsample passes for dual kawase blur.
                   '';
                 };
-                offset = nullable types.float // {
+                offset = nullable float-or-int // {
                   description = ''
                     Pixel offset multiplier for each pass.
                   '';
                 };
-                noise = nullable types.float // {
+                noise = nullable float-or-int // {
                   description = ''
                     Amount of noise to add on top of the blur.
                   '';
                 };
-                saturation = nullable types.float // {
+                saturation = nullable float-or-int // {
                   description = ''
                     Color saturation applied to the blurred background.
                   '';
