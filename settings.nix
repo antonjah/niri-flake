@@ -2978,6 +2978,17 @@
                       '';
                     };
                   }
+                  {
+                    background-effect = nullable (record {
+                      xray = nullable types.bool;
+                      blur = nullable types.bool;
+                      noise = nullable types.float;
+                      saturation = nullable types.float;
+                    }) // {
+                      description = ''Override the background effect options for this layer surface.''
+                      ;
+                    };
+                  }
                 ]
               )
               // {
@@ -3823,6 +3834,12 @@
             (nullable (map' leaf corner-radius) "geometry-corner-radius" cfg.geometry-corner-radius)
             (nullable leaf "place-within-backdrop" cfg.place-within-backdrop)
             (nullable leaf "baba-is-float" cfg.baba-is-float)
+            (optional-node (cfg.background-effect != null) (plain' "background-effect" [
+              (nullable leaf "xray" cfg.background-effect.xray)
+              (nullable leaf "blur" cfg.background-effect.blur)
+              (nullable leaf "noise" cfg.background-effect.noise)
+              (nullable leaf "saturation" cfg.background-effect.saturation)
+            ]))
           ])
         ]))
 
