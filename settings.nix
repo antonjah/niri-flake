@@ -2857,7 +2857,7 @@
                     tiled-state = nullable types.bool;
                   }
                   {
-                    background-effect = nullable (section {
+                    background-effect = nullable (record {
                       xray = nullable types.bool // {
                         description = ''
                           Enable the xray effect, which blurs the background efficiently by sampling
