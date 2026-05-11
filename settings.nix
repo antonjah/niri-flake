@@ -2976,6 +2976,44 @@
           }
 
           {
+            blur =
+              section {
+                enable = nullable types.bool // {
+                  description = ''
+                    Whether to enable blur.
+
+                    Setting this to ${fmt.code "true"} emits ${fmt.code "on"}, setting it to ${fmt.code "false"} emits ${fmt.code "off"}, and leaving it ${fmt.code "null"} omits the flag entirely.
+                  '';
+                };
+                passes = nullable types.int // {
+                  description = ''
+                    Number of downsample/upsample passes for dual kawase blur.
+                  '';
+                };
+                offset = nullable types.float // {
+                  description = ''
+                    Pixel offset multiplier for each pass.
+                  '';
+                };
+                noise = nullable types.float // {
+                  description = ''
+                    Amount of noise to add on top of the blur.
+                  '';
+                };
+                saturation = nullable types.float // {
+                  description = ''
+                    Color saturation applied to the blurred background.
+                  '';
+                };
+              }
+              // {
+                description = ''
+                  Blur configuration.
+                '';
+              };
+          }
+
+          {
             debug = attrs kdl.types.kdl-args // {
               description = ''
                 Debug options for niri.
@@ -3778,6 +3816,15 @@
           (toggle "off" cfg.xwayland-satellite [
             (nullable leaf "path" cfg.xwayland-satellite.path)
           ])
+        ])
+
+        (plain' "blur" [
+          (flag' "on" (cfg.blur.enable == true))
+          (flag' "off" (cfg.blur.enable == false))
+          (nullable leaf "passes" cfg.blur.passes)
+          (nullable leaf "offset" cfg.blur.offset)
+          (nullable leaf "noise" cfg.blur.noise)
+          (nullable leaf "saturation" cfg.blur.saturation)
         ])
 
         (map' plain' (lib.mapAttrsToList leaf) "debug" cfg.debug)
